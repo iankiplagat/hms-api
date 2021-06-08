@@ -13,7 +13,7 @@ departments=[('Cardiologist','Cardiologist'),
 ]
 class Doctor(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
-    name=models.CharField(max_length=50, default='user')
+    name=models.CharField(max_length=50, default='doctor')
     profile_pic= models.ImageField(upload_to='profile_photos/Doctor/', default='profile_photos/Doctor/default_ku6ks9.jpg')
     address = models.CharField(max_length=40)
     mobile = models.CharField(max_length=20,null=True)
@@ -45,4 +45,43 @@ class Doctor(models.Model):
       
     def __str__(self):
         return "{} ({})".format(self.user.first_name,self.department)
+      
+    
+class Patient(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    name=models.CharField(max_length=50, default='patient')
+    profile_pic= models.ImageField(upload_to='profile_photos/Doctor/', default='profile_photos/Patient/default_olh4qq.jpg')
+    address = models.CharField(max_length=40)
+    mobile = models.CharField(max_length=20,null=False)
+    symptoms = models.CharField(max_length=100,null=False)
+    assignedDoctorId = models.PositiveIntegerField(null=True)
+    admitDate=models.DateField(auto_now=True)
+    status=models.BooleanField(default=False)
+    
+    @receiver(post_save, sender=User)
+    def create_patient_profile(sender, instance, created, **kwargs):
+      if created:
+          Patient.objects.create(user=instance)
+  
+    @receiver(post_save, sender=User)
+    def save_patient_profile(sender, instance, created=False, **kwargs):
+      instance.patient.save()
+
+    def save_patient(self):
+      self.save()
+
+    def delete_patient(self):
+      self.delete() 
+      
+    @property
+    def get_name(self):
+        return self.user.first_name+" "+self.user.last_name
+      
+    @property
+    def get_id(self):
+        return self.user.id
+      
+    def __str__(self):
+        return self.user.first_name+" ("+self.symptoms+")"    
+  
 
