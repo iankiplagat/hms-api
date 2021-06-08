@@ -29,8 +29,8 @@ urlpatterns=[
   path('appointments/',views.AppointmentList.as_view(),name='appointment'),
   path('appointment/<patientName>',views.ApptSearchList.as_view(), name='appt_search'),
   path('appointment/<int:pk>/',views.SingleAppointmentList.as_view(),name='single_appt'),
-  # path('patient/update/<int:pk>/',views.PatientList.as_view(),name='update_patient_profile'),
-  # path('patient/delete/<int:pk>/',views.PatientList.as_view(),name='delete_patient'),
+  path('appointment/update/<int:pk>/',views.PatientList.as_view(),name='update_appt'),
+  path('appointment/delete/<int:pk>/',views.PatientList.as_view(),name='delete_appt'),
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

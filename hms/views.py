@@ -180,16 +180,16 @@ class AppointmentList(APIView):
     return Response(serializers.data)
 
   def put(self, request, pk, format=None):
-    patient = self.get_patient(pk)
-    serializers = PatientSerializer(patient, request.data)
+    appointment = self.get_appointment(pk)
+    serializers = AppointmentSerializer(Appointment, request.data)
     if serializers.is_valid():
       serializers.save()
-      patient=serializers.data
+      appointment=serializers.data
       response = {
           'data': {
-              'patient': dict(patient),
+              'appointment': dict(appointment),
               'status': 'success',
-              'message': 'Patient updated successfully',
+              'message': 'Appointment updated successfully',
           }
       }
       return Response(response)
@@ -197,6 +197,6 @@ class AppointmentList(APIView):
       return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
   def delete(self, request, pk, format=None):
-    patient = self.get_patient(pk)
-    patient.delete()
+    appointment = self.get_appointment(pk)
+    appointment.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
