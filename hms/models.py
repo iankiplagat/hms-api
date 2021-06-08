@@ -11,6 +11,7 @@ departments=[('Cardiologist','Cardiologist'),
 ]
 class Doctor(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
+    name=models.CharField(max_length=50, default='user')
     profile_pic= models.ImageField(upload_to='profile_photos/Doctor/', default='profile_photos/Doctor/default_ku6ks9.jpg')
     address = models.CharField(max_length=40)
     mobile = models.CharField(max_length=20,null=True)
