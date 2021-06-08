@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'cloudinary',
     'rest_framework',
+    'rest_framework.authtoken',
     
     # Django
     'django.contrib.admin',
@@ -54,6 +55,12 @@ CLOUDINARY_STORAGE = {
     'CLOUD_NAME':"kasparov",
     'API_KEY':"623993469388411",
     'API_SECRET':"VCf65PVv1BM09CJbTXCjj2pprRc",
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
 }
 
 
