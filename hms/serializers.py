@@ -49,7 +49,7 @@ class LoginSerializer(serializers.ModelSerializer):
 class DoctorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Doctor
-        fields = ('id', 'user', 'name', 'profile_pic', 'address', 'mobile' 'department', 'status')
+        fields = ('id', 'user', 'name', 'profile_pic', 'address', 'mobile', 'department', 'status')
         
         
 class PatientSerializer(serializers.ModelSerializer):

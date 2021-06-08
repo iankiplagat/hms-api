@@ -53,3 +53,52 @@ class LoginUser(APIView):
             }
             return Response(response, status=status.HTTP_200_OK)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)    
+
+
+class SingleDoctorList(APIView):
+  def get(self,request, pk, format=None):
+    doctor= Doctor.objects.get(pk=pk)
+    serializers=DoctorSerializer(doctor)
+    return Response(serializers.data)
+
+
+class DoctorSearchList(APIView):
+  def get(self,request,name):
+    doctor=Doctor.find_doctor(name)
+    serializers=DoctorSerializer(doctor, many=True)
+    return Response(serializers.data)
+
+
+class DoctorList(APIView):
+  def get_doctor(self, pk):
+    try:
+        return Doctor.objects.get(pk=pk)
+    except Doctor.DoesNotExist:
+        return Http404()
+
+  def get(self,request,format=None):
+    doctor= Doctor.objects.all()
+    serializers=DoctorSerializer(doctor, many=True)
+    return Response(serializers.data)
+
+  def put(self, request, pk, format=None):
+    doctor = self.get_doctor(pk)
+    serializers = DoctorSerializer(doctor, request.data)
+    if serializers.is_valid():
+      serializers.save()
+      doctor=serializers.data
+      response = {
+          'data': {
+              'doctor': dict(doctor),
+              'status': 'success',
+              'message': 'Doctor updated successfully',
+          }
+      }
+      return Response(response)
+    else:
+      return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+  def delete(self, request, pk, format=None):
+    doctor = self.get_doctor(pk)
+    doctor.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)

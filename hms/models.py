@@ -16,7 +16,7 @@ class Doctor(models.Model):
     name=models.CharField(max_length=40, default='doctor')
     profile_pic= models.ImageField(upload_to='profile_photos/Doctor/', default='profile_photos/Doctor/default_ku6ks9.jpg')
     address = models.CharField(max_length=40)
-    mobile = models.CharField(max_length=20,null=True)
+    mobile = models.CharField(max_length=20)
     department= models.CharField(max_length=50,choices=departments,default='Cardiologist')
     status=models.BooleanField(default=False)
     
@@ -34,6 +34,10 @@ class Doctor(models.Model):
 
     def delete_doctor(self):
       self.delete() 
+      
+    @classmethod
+    def find_doctor(cls,name):
+        return cls.objects.filter(name__icontains=name)  
     
     @property
     def get_name(self):
