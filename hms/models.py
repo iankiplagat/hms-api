@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 departments=[('Cardiologist','Cardiologist'),
@@ -17,6 +19,21 @@ class Doctor(models.Model):
     mobile = models.CharField(max_length=20,null=True)
     department= models.CharField(max_length=50,choices=departments,default='Cardiologist')
     status=models.BooleanField(default=False)
+    
+    @receiver(post_save, sender=User)
+    def create_doctor_profile(sender, instance, created, **kwargs):
+      if created:
+          Doctor.objects.create(user=instance)
+  
+    @receiver(post_save, sender=User)
+    def save_doctor_profile(sender, instance, created=False, **kwargs):
+      instance.doctor.save()
+
+    def save_doctor(self):
+      self.save()
+
+    def delete_doctor(self):
+      self.delete() 
     
     @property
     def get_name(self):
