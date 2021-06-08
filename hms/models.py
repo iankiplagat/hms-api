@@ -77,6 +77,10 @@ class Patient(models.Model):
     def delete_patient(self):
       self.delete() 
       
+    @classmethod
+    def find_patient(cls,name):
+        return cls.objects.filter(name__icontains=name)    
+      
     @property
     def get_name(self):
         return self.user.first_name+" "+self.user.last_name
