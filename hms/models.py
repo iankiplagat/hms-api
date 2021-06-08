@@ -13,7 +13,7 @@ departments=[('Cardiologist','Cardiologist'),
 ]
 class Doctor(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
-    name=models.CharField(max_length=50, default='doctor')
+    name=models.CharField(max_length=40, default='doctor')
     profile_pic= models.ImageField(upload_to='profile_photos/Doctor/', default='profile_photos/Doctor/default_ku6ks9.jpg')
     address = models.CharField(max_length=40)
     mobile = models.CharField(max_length=20,null=True)
@@ -49,7 +49,7 @@ class Doctor(models.Model):
     
 class Patient(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
-    name=models.CharField(max_length=50, default='patient')
+    name=models.CharField(max_length=40, default='patient')
     profile_pic= models.ImageField(upload_to='profile_photos/Doctor/', default='profile_photos/Patient/default_olh4qq.jpg')
     address = models.CharField(max_length=40)
     mobile = models.CharField(max_length=20,null=False)
@@ -85,3 +85,11 @@ class Patient(models.Model):
         return self.user.first_name+" ("+self.symptoms+")"    
   
 
+class Appointment(models.Model):
+    patientId=models.PositiveIntegerField(null=True)
+    doctorId=models.PositiveIntegerField(null=True)
+    patientName=models.CharField(max_length=40,null=True)
+    doctorName=models.CharField(max_length=40,null=True)
+    appointmentDate=models.DateField(auto_now=True)
+    description=models.TextField(max_length=500)
+    status=models.BooleanField(default=False)
