@@ -114,7 +114,11 @@ class Appointment(models.Model):
       
     @classmethod
     def find_patient(cls,name):
-        return cls.objects.filter(name__icontains=name)      
+        return cls.objects.filter(name__icontains=name)    
+      
+    @classmethod
+    def find_appointment(cls,patientName):
+        return cls.objects.filter(patientName__icontains=patientName)      
       
     def __str__(self):
         return self.patientName   

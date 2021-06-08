@@ -160,10 +160,10 @@ class SingleAppointmentList(APIView):
     return Response(serializers.data)
 
 
-class PatientSearchList(APIView):
-  def get(self,request,name):
-    patient=Patient.find_patient(name)
-    serializers=DoctorSerializer(patient, many=True)
+class ApptSearchList(APIView):
+  def get(self,request,patientName):
+    appointment=Appointment.find_appointment(patientName)
+    serializers=AppointmentSerializer(appointment, many=True)
     return Response(serializers.data)
 
 

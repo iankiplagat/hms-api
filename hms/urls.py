@@ -27,7 +27,7 @@ urlpatterns=[
   
   # Appointment
   # path('appointment/',views.PatientList.as_view(),name='patient'),
-  # path('patient/<name>',views.PatientSearchList.as_view(), name='patient_search'),
+  path('appt/<patientName>',views.ApptSearchList.as_view(), name='appt_search'),
   path('appt/<int:pk>/',views.SingleAppointmentList.as_view(),name='single_appt'),
   # path('patient/update/<int:pk>/',views.PatientList.as_view(),name='update_patient_profile'),
   # path('patient/delete/<int:pk>/',views.PatientList.as_view(),name='delete_patient'),
