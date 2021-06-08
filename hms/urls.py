@@ -12,23 +12,23 @@ urlpatterns=[
   path('authlogin/', ObtainAuthToken.as_view(), name="authlogin"),
   
   # Doctor
-  path('doctor/',views.DoctorList.as_view(),name='doctor'),
+  path('doctors/',views.DoctorList.as_view(),name='doctor'),
   path('doctor/<name>',views.DoctorSearchList.as_view(), name='doctor_search'),
   path('doctor/<int:pk>/',views.SingleDoctorList.as_view(),name='single_doctor'),
   path('doctor/update/<int:pk>/',views.DoctorList.as_view(),name='update_doctor_profile'),
   path('doctor/delete/<int:pk>/',views.DoctorList.as_view(),name='delete_doctor'),
   
   # Patient
-  path('patient/',views.PatientList.as_view(),name='patient'),
+  path('patients/',views.PatientList.as_view(),name='patient'),
   path('patient/<name>',views.PatientSearchList.as_view(), name='patient_search'),
   path('patient/<int:pk>/',views.SinglePatientList.as_view(),name='single_patient'),
   path('patient/update/<int:pk>/',views.PatientList.as_view(),name='update_patient_profile'),
   path('patient/delete/<int:pk>/',views.PatientList.as_view(),name='delete_patient'),
   
   # Appointment
-  # path('appointment/',views.PatientList.as_view(),name='patient'),
-  path('appt/<patientName>',views.ApptSearchList.as_view(), name='appt_search'),
-  path('appt/<int:pk>/',views.SingleAppointmentList.as_view(),name='single_appt'),
+  path('appointments/',views.AppointmentList.as_view(),name='appointment'),
+  path('appointment/<patientName>',views.ApptSearchList.as_view(), name='appt_search'),
+  path('appointment/<int:pk>/',views.SingleAppointmentList.as_view(),name='single_appt'),
   # path('patient/update/<int:pk>/',views.PatientList.as_view(),name='update_patient_profile'),
   # path('patient/delete/<int:pk>/',views.PatientList.as_view(),name='delete_patient'),
 ]

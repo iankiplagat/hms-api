@@ -167,16 +167,16 @@ class ApptSearchList(APIView):
     return Response(serializers.data)
 
 
-class PatientList(APIView):
-  def get_patient(self, pk):
+class AppointmentList(APIView):
+  def get_appointment(self, pk):
     try:
-        return Patient.objects.get(pk=pk)
-    except Patient.DoesNotExist:
+        return Appointment.objects.get(pk=pk)
+    except Appointment.DoesNotExist:
         return Http404()
 
   def get(self,request,format=None):
-    patient= Patient.objects.all()
-    serializers=PatientSerializer(patient, many=True)
+    appointment= Appointment.objects.all()
+    serializers=AppointmentSerializer(appointment, many=True)
     return Response(serializers.data)
 
   def put(self, request, pk, format=None):
