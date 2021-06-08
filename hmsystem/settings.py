@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     # Dependencies
     'cloudinary_storage',
     'cloudinary',
+    'rest_framework',
     
     # Django
     'django.contrib.admin',
