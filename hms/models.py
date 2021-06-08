@@ -101,3 +101,21 @@ class Appointment(models.Model):
     appointmentDate=models.DateField(auto_now=True)
     description=models.TextField(max_length=500)
     status=models.BooleanField(default=False)
+    
+    def save_appointment(self):
+      self.save()
+
+    def delete_appointment(self):
+      self.delete() 
+    
+    @classmethod
+    def find_doctor(cls,name):
+        return cls.objects.filter(name__icontains=name) 
+      
+    @classmethod
+    def find_patient(cls,name):
+        return cls.objects.filter(name__icontains=name)      
+      
+    def __str__(self):
+        return self.patientName   
+    
