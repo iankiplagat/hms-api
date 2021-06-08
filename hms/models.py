@@ -48,7 +48,7 @@ class Doctor(models.Model):
         return self.user.id
       
     def __str__(self):
-        return "{} ({})".format(self.user.first_name,self.department)
+        return self.name
       
     
 class Patient(models.Model):
@@ -90,7 +90,7 @@ class Patient(models.Model):
         return self.user.id
       
     def __str__(self):
-        return self.user.first_name+" ("+self.symptoms+")"    
+        return self.name 
   
 
 class Appointment(models.Model):

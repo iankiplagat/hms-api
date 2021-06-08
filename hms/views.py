@@ -151,3 +151,52 @@ class PatientList(APIView):
     patient = self.get_patient(pk)
     patient.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class SingleAppointmentList(APIView):
+  def get(self,request, pk, format=None):
+    appointment= Appointment.objects.get(pk=pk)
+    serializers=AppointmentSerializer(appointment)
+    return Response(serializers.data)
+
+
+class PatientSearchList(APIView):
+  def get(self,request,name):
+    patient=Patient.find_patient(name)
+    serializers=DoctorSerializer(patient, many=True)
+    return Response(serializers.data)
+
+
+class PatientList(APIView):
+  def get_patient(self, pk):
+    try:
+        return Patient.objects.get(pk=pk)
+    except Patient.DoesNotExist:
+        return Http404()
+
+  def get(self,request,format=None):
+    patient= Patient.objects.all()
+    serializers=PatientSerializer(patient, many=True)
+    return Response(serializers.data)
+
+  def put(self, request, pk, format=None):
+    patient = self.get_patient(pk)
+    serializers = PatientSerializer(patient, request.data)
+    if serializers.is_valid():
+      serializers.save()
+      patient=serializers.data
+      response = {
+          'data': {
+              'patient': dict(patient),
+              'status': 'success',
+              'message': 'Patient updated successfully',
+          }
+      }
+      return Response(response)
+    else:
+      return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+  def delete(self, request, pk, format=None):
+    patient = self.get_patient(pk)
+    patient.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
