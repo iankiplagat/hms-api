@@ -11,11 +11,18 @@ urlpatterns=[
   path('login/', views.LoginUser.as_view(), name="login"),
   path('authlogin/', ObtainAuthToken.as_view(), name="authlogin"),
   
+  # User 
+  path('users/',views.UserList.as_view(),name='user'),
+  path('user/<int:pk>/',views.SingleUserList.as_view(),name='single_user'),
+  # path('user/<username>',views.UserSearchList.as_view(), name='user_search'),
+  # path('user/delete/<username>/',views.UserList.as_view(),name='delete_user'),
+  # path('user/update/<int:pk>/',views.UserList.as_view(),name='update_user'),
+  
   # Doctor
   path('doctors/',views.DoctorList.as_view(),name='doctor'),
   path('doctor/<name>',views.DoctorSearchList.as_view(), name='doctor_search'),
   path('doctor/<int:pk>/',views.SingleDoctorList.as_view(),name='single_doctor'),
-  path('doctor/update/<int:pk>/',views.DoctorList.as_view(),name='update_doctor_profile'),
+  path('doctor/update/<name>/',views.DoctorList.as_view(),name='update_doctor_profile'),
   path('doctor/delete/<int:pk>/',views.DoctorList.as_view(),name='delete_doctor'),
   
   # Patient

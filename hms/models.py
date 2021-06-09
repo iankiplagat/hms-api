@@ -33,15 +33,20 @@ class Doctor(models.Model):
       self.save()
 
     def delete_doctor(self):
-      self.delete() 
+      self.delete()
       
     @classmethod
     def find_doctor(cls,name):
-        return cls.objects.filter(name__icontains=name)  
+        return cls.objects.filter(name__icontains=name)
+      
+    @classmethod
+    def get_patient(cls,name):
+        patient = cls.objects.filter(patient__name__icontains=name)
+        return patient    
     
     @property
     def get_name(self):
-        return self.user.first_name+" "+self.user.last_name
+        return self.name
       
     @property
     def get_id(self):
