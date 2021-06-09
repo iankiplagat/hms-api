@@ -4,6 +4,8 @@ chardet==4.0.0
 cloudinary==1.25.0
 Django==3.2.4
 django-cloudinary-storage==0.3.0
+django-cors-headers==3.7.0
+djangorestframework==3.12.4
 idna==2.10
 Pillow==8.2.0
 psycopg2==2.8.6
